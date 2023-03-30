@@ -58,20 +58,32 @@ struct ResponseData{
 use kpubapi::Client;
 
 fn main(){
-	let client = Client::builder()
-					.url("http://localfood.chungnam.go.kr/localfood/openApi01.do")
-					.token("TestID")
-					.build();
+    let client = Client::builder()
+                    .url("http://localfood.chungnam.go.kr/localfood/openApi01.do")
+                    .token("TestID")
+                    .build();
 
-	let response = client.send(request);
+    let response = client.send(request);
 }
 ```
 
 ## Implementation plan
-There might be some overlap between the detailed design and the implementation plan, but this section includes the actionable items (i.e. epics and tasks) required to complete and ship the service/feature.
+### Client
+- [ ] Builder
+- [ ] Send request
+- [ ] Parse response
+
+### Derive macro
+- [ ] Basic structure for Request, Response trait
+- [ ] Detect name of attribute and type
+- [ ] Optional attribute
+- [ ] Enum attribute 
+- [ ] Custom structure attribute
+- [ ] Derive `Display` trait for Request
+- [ ] Derive `From<String>` trait for Response
 
 ## Tests
-What tests will you write? How will you ensure this service/feature works? How will you know when this service/feature stops working?
-
-## Runbook
-How do you launch this service/feature? How will you monitor it? How does someone else troubleshoot it?
+- [ ] Null request / Connection test
+- [ ] Request trait display test
+- [ ] Response trait parse test
+- [ ] Client send function test
