@@ -10,6 +10,23 @@
 3. Request trait을 만족하는 변수를 인수로 하는 request 함수
 
 ## Detailed design
+## Client
+공공데이터포털과 직접적으로 소통하는 Client 구조체가 존재해야 한다.
+기본적으로 요청할 api의 주소와 ID 등의 필요정보를 가지고 있으며 Request trait을 가지는 구조체를 인수로 하여 포털로부터 response를 받아 parsing해 결과값을 출력해줄 수 있다. 
+
+```rust
+use kpubapi::Client;
+
+fn main(){
+    let client = Client::builder()
+                    .url("http://localfood.chungnam.go.kr/localfood/openApi01.do")
+                    .token("TestID")
+                    .build();
+
+    let response = client.send(request);
+}
+```
+
 ### Derive macro
 구조체의 attribute가 Request의 어떤 변수에 대응되는지 적으면, 이를 토대로 Request trait을 implement 해주는 derive macro.
 Optional field인지 여부인지 확인하고, 기본적으로는 attribute의 이름을 그대로 request field로 활용하되, name을 따로 지정해주는 것도 가능하다.
@@ -47,23 +64,6 @@ struct ResponseData{
 	seq : usize,
 	#[info(name = "TOT_AMT")]
 	cost : usize
-}
-```
-
-## Client
-공공데이터포털과 직접적으로 소통하는 Client 구조체가 존재해야 한다.
-기본적으로 요청할 api의 주소와 ID 등의 필요정보를 가지고 있으며 Request trait을 가지는 구조체를 인수로 하여 포털로부터 response를 받아 parsing해 결과값을 출력해줄 수 있다. 
-
-```rust
-use kpubapi::Client;
-
-fn main(){
-    let client = Client::builder()
-                    .url("http://localfood.chungnam.go.kr/localfood/openApi01.do")
-                    .token("TestID")
-                    .build();
-
-    let response = client.send(request);
 }
 ```
 
